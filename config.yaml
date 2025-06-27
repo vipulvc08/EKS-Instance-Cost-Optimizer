@@ -69,7 +69,6 @@ preferred_instance_types:
   - m6in.metal
   - m6idn.large
   - m6idn.xlarge
-  - m6idn.2xlarge
   - m6idn.4xlarge
   - m6idn.8xlarge
   - m6idn.12xlarge
