@@ -1,0 +1,10 @@
+region: ap-south-1
+min_cpu: 8
+max_cpu: 16
+include_burstable: true
+
+# Optional: use these instance types directly in fetch_by_machine_type.py
+preferred_instance_types:
+  - t3a.large
+  - m6i.large
+  - c5.large

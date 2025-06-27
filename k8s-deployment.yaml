@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-spot-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eks-spot-controller
+  template:
+    metadata:
+      labels:
+        app: eks-spot-controller
+    spec:
+      serviceAccountName: eks-spot-controller
+      containers:
+        - name: controller
+          image: your-dockerhub-username/eks-spot-controller:latest
+          imagePullPolicy: Always
+          env:
+            - name: AWS_REGION
+              value: ap-south-1
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.yaml
+              subPath: config.yaml
+      volumes:
+        - name: config-volume
+          configMap:
+            name: eks-spot-controller-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eks-spot-controller-config
+data:
+  config.yaml: |
+    preferred_instance_types:
+      - t3.large
+      - m6i.large
+      - c5.large
+    minimum_requirements:
+      cpu: 2
+      memory: 4Gi
+    region: ap-south-1
